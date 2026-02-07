@@ -72,6 +72,67 @@ User authentication mechanisms are essential to ensure secure and authorized acc
 Client-server chat applications are versatile tools that facilitate real-time communication between users over a network. They incorporate various components, including server-side and client-side elements, and must consider factors such as security, scalability, and concurrency. As technology continues to advance, client-server chat applications remain integral for collaborative communication in various domains.
 
 Client-server chat applications are foundational to real-time communication over networks. They incorporate principles of socket programming, communication protocols, and security mechanisms to provide a seamless user experience. Understanding the basics of client-server chat applications is essential for developers involved in networked application development, as they form the backbone of various collaborative communication systems. As technology evolves, chat applications continue to adapt, incorporating new features and technologies to enhance user interaction and connectivity.
+## PROGRAM :
+Server side
+```
+import socket
+
+server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+host = '0.0.0.0'  
+port = 12345
+
+server_socket.bind((host, port))
+
+server_socket.listen(1)
+print("Server is waiting for connection...")
+
+conn, addr = server_socket.accept()
+print("Connected to client:", addr)
+
+while True:
+    client_msg = conn.recv(1024).decode()
+    if client_msg.lower() == "exit":
+        print("Client disconnected.")
+        break
+    print("Client:", client_msg)
+
+    server_msg = input("Server: ")
+    conn.send(server_msg.encode())
+
+conn.close()
+server_socket.close()
+```
+Client side
+```
+Client.py
+
+# Import socket module 
+import socket             
+
+# Create a socket object 
+s = socket.socket()         
+
+# Define the port on which you want to connect 
+port = 12345                
+
+# connect to the server on local computer 
+s.connect(('169.254.101.23', port)) 
+#s.setblocking(False)
+# receive data from the server and decoding to get the string.
+s.send("Thanks for accpeting the connection. ".encode())
+while True:
+    d = s.recv(1024).decode()
+    print ("Server Says: ",d)
+    m = input("Enter ur msg:")
+    s.send(m.encode())
+```
+## OUTPUT
+Server side
+![WhatsApp Image 2026-02-07 at 8 45 23 AM](https://github.com/user-attachments/assets/bdd3e023-17da-418c-a9ea-30a78b2ad5e0)
+
+Client side
+![WhatsApp Image 2026-02-07 at 8 45 23 AM (1)](https://github.com/user-attachments/assets/dab8ad52-c358-4c94-80ea-5556fc414318)
 
 
 ## Result:
